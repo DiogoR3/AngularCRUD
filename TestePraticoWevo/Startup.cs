@@ -1,16 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using TestePraticoWevo.Repository;
+using TestePraticoWevo.Service;
 
 namespace TestePraticoWevo
 {
@@ -23,7 +19,6 @@ namespace TestePraticoWevo
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
@@ -32,9 +27,31 @@ namespace TestePraticoWevo
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TestePraticoWevo", Version = "v1" });
             });
+
+            services.AddDbContext<PessoaContext>(
+                options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
+                options => options.EnableRetryOnFailure()));
+
+
+            // Para fazer injecao de dependencia da classe servico ja com o DbContext
+            bool useInMemory = Configuration.GetValue<bool>("UseInMemory");
+            var db = new DbContextOptionsBuilder<PessoaContext>();
+            IPessoaService pessoaService = null;
+
+            if (useInMemory)
+            {
+                db.UseInMemoryDatabase("TestePraticoWevo", inMemoryOptionsAction: null);
+                pessoaService = new PessoaServiceInMemory(new PessoaContext(db.Options));
+            }
+            else
+            {
+                db.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                pessoaService = new PessoaService(new PessoaContext(db.Options));
+            }
+
+            services.AddSingleton<IPessoaService>(pessoaService);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
