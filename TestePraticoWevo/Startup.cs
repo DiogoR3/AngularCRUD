@@ -61,6 +61,7 @@ namespace TestePraticoWevo
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TestePraticoWevo v1"));
             }
 
+            app.UseCors(x => x.AllowAnyOrigin());
             app.UseHttpsRedirection();
 
             app.UseRouting();

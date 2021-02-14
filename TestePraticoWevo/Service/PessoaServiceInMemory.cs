@@ -1,8 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using TestePraticoWevo.Models;
 using TestePraticoWevo.Repository;
 
@@ -29,6 +26,7 @@ namespace TestePraticoWevo.Service
 
         public Pessoa Criar(Pessoa pessoa)
         {
+            pessoa.Id = 0;
             _context.Pessoas.Add(pessoa);
             _context.SaveChanges();
             return pessoa;
@@ -36,12 +34,15 @@ namespace TestePraticoWevo.Service
 
         public void Atualizar(int id, Pessoa pessoa)
         {
-            Pessoa novaPessoa = _context.Pessoas.Where(p => p == pessoa).FirstOrDefault();
+            Pessoa pessoaAtual = _context.Pessoas.Where(p => p.Id == pessoa.Id).FirstOrDefault();
 
-            if (novaPessoa is null)
+            if (pessoaAtual is null)
+            {
+                pessoa.Id = 0;
                 _context.Pessoas.Add(pessoa);
+            }
             else
-                _context.Entry(pessoa).State = EntityState.Modified;
+                _context.Entry(_context.Pessoas.FirstOrDefault(p => p.Id == id)).CurrentValues.SetValues(pessoa);
 
             _context.SaveChanges();
         }
@@ -49,8 +50,12 @@ namespace TestePraticoWevo.Service
         public void Remover(int id)
         {
             Pessoa pessoa = _context.Pessoas.Where(p => p.Id == id).FirstOrDefault();
-            _context.Pessoas.Remove(pessoa);
-            _context.SaveChanges();
+
+            if (pessoa is not null)
+            {
+                _context.Pessoas.Remove(pessoa);
+                _context.SaveChanges();
+            }
         }
     }
 }
