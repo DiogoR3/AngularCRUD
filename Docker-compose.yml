@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  apinetcore:
+    image: projetoaspnetcore
+    build: ./TestePraticoWevo/
+    restart: unless-stopped
+    ports:
+      - 81:80
+    depends_on: 
+      - sqlserver
+    volumes:
+      - ./config/appsettings.json:/app/appsettings.json
+    networks:
+      - my-network
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:latest
+    environment: 
+      ACCEPT_EULA: Y
+      SA_PASSWORD: SenhaSegura#123
+      MSSQL_PID: Express
+    ports:
+      - 7654:1433
+    networks:
+      - my-network
+
+  frontangular:
+    image: projetoangularenginx
+    build: ./Front/
+    ports:
+      - 80:80
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
