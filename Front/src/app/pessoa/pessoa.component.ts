@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-pessoa',
@@ -26,14 +27,14 @@ export class PessoaComponent implements OnInit {
   }
 
   AoDigitar(evento){
-    this.httpClient.get<Pessoa>('Pessoa/' + evento.target.value).subscribe(result => {
+    this.httpClient.get<Pessoa>(environment.apiUrl + 'Pessoa/' + evento.target.value).subscribe(result => {
       this.dataSource = [];
       this.dataSource.push(result);
     }, error => this.dataSource = []);
   }
 
   ListarTodos(){
-    this.httpClient.get<Pessoa[]>('Pessoa').subscribe(result => {
+    this.httpClient.get<Pessoa[]>(environment.apiUrl + 'Pessoa').subscribe(result => {
       this.dataSource = result;
     }, error => this.dataSource = []);
   }
@@ -45,7 +46,7 @@ export class PessoaComponent implements OnInit {
   //}
 
   ConsultarPorId(){
-    this.httpClient.get<Pessoa[]>('Pessoa/').subscribe(result => {
+    this.httpClient.get<Pessoa[]>(environment.apiUrl + 'Pessoa/').subscribe(result => {
       this.dataSource = result;
       var pessoa = result[0].cpf;
        
