@@ -3,14 +3,14 @@ using TestePraticoWevo.Models;
 
 namespace TestePraticoWevo.Repository
 {
-    public class PessoaContext : DbContext
+    public class PersonContext : DbContext
     {
-        public PessoaContext(DbContextOptions<PessoaContext> options) : base(options)
+        public PersonContext(DbContextOptions<PersonContext> options) : base(options)
         {
             Database.EnsureCreated();
         }
 
-        public DbSet<Pessoa> Pessoas { get; set; }
+        public DbSet<Person> Person { get; set; }
 
     }
 }

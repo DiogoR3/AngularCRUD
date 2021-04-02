@@ -28,28 +28,18 @@ namespace TestePraticoWevo
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TestePraticoWevo", Version = "v1" });
             });
 
-            services.AddDbContext<PessoaContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                options => options.EnableRetryOnFailure()));
-
-
             // Para fazer injecao de dependencia da classe servico ja com o DbContext
             bool useInMemory = Configuration.GetValue<bool>("UseInMemory");
-            var db = new DbContextOptionsBuilder<PessoaContext>();
-            IPessoaService pessoaService = null;
 
-            if (useInMemory)
+            services.AddDbContext<PersonContext>(opt =>
             {
-                db.UseInMemoryDatabase("TestePraticoWevo", inMemoryOptionsAction: null);
-                pessoaService = new PessoaServiceInMemory(new PessoaContext(db.Options));
-            }
-            else
-            {
-                db.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-                pessoaService = new PessoaService(new PessoaContext(db.Options));
-            }
+                if (useInMemory)
+                    opt.UseInMemoryDatabase("MemoryDB", null);
+                else
+                    opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
 
-            services.AddSingleton<IPessoaService>(pessoaService);
+            _ = useInMemory ? services.AddScoped<IPersonService, PersonServiceInMemory>() : services.AddScoped<IPersonService, PersonService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
