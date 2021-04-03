@@ -15,7 +15,7 @@ export class AppComponent {
 
   CallAPI() {
     
-    this.httpClient.get<any>("/Pessoa").subscribe(result => {
+    this.httpClient.get<any>("/person").subscribe(result => {
       console.log(result);
     }, error => {
       console.error(error);
