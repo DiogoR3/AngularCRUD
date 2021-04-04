@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading;
 using TestePraticoWevo.Models;
 using TestePraticoWevo.Service;
 
@@ -19,11 +20,12 @@ namespace TestePraticoWevo.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Person>> List()
         {
+            Thread.Sleep(5000);
             return _personService.List();
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Person> Obter(int id)
+        public ActionResult<Person> Get(int id)
         {
             Person person = _personService.Get(id);
 
