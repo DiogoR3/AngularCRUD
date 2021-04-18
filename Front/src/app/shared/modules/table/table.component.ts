@@ -7,19 +7,19 @@ import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 })
 export class TableComponent implements OnInit {
 
-  constructor() { }
-
   @Input() dataSource: any;
   @Input() displayedColumns: string[];
-  @Output() clickedRow: EventEmitter<any> = new EventEmitter<any>();
+  @Output() rowClick: EventEmitter<any> = new EventEmitter<any>();
 
-  selectRow(row: any): void {
-    this.clickedRow.emit(row);
-  }
+  selectedRow: any;
+
+  constructor() { }
 
   ngOnInit(): void {
-    console.log(this.dataSource)
-    console.log(this.displayedColumns)
   }
 
+  selectRow(row: any): void {
+    this.selectedRow = row;
+    this.rowClick.emit(this.selectedRow);
+  }
 }

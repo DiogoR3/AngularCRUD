@@ -19,7 +19,6 @@ namespace Backend.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Person>> List()
         {
-            System.Threading.Thread.Sleep(2_000);
             return PersonService.List();
         }
 

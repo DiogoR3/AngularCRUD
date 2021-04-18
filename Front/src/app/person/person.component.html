@@ -1,52 +1,50 @@
 <div class="search">
-  <mat-form-field class="full-width">
-    <mat-label>Search by name:</mat-label>
-    <input matInput [(ngModel)]="search" (keyup)="applyFilter()">
-  </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label>Search by name:</mat-label>
+        <input matInput [(ngModel)]="search" (keyup)="applyFilter()">
+    </mat-form-field>
 </div>
 
 <ng-container *ngIf="loaded;else spinner">
-  <app-table [dataSource]="filteredDataSource" [displayedColumns]="displayedColumns"></app-table>
+    <app-table [dataSource]="filteredDataSource" [displayedColumns]="displayedColumns" (rowClick)=setPerson($event)></app-table>
 </ng-container>
 
 <ng-template #spinner>
-  <mat-spinner class="spinner"></mat-spinner>
+    <mat-spinner class="spinner"></mat-spinner>
 </ng-template>
 
 <form class="person-form">
-  <mat-form-field class="full-width">
-    <mat-label>Name</mat-label>
-    <input id="name" matInput placeholder="Ex. João Silva" value="" [(ngModel)]="personForm.name" name="name">
-  </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Ex. João Silva" value="" [(ngModel)]="personForm.name" name="name">
+    </mat-form-field>
 
-  <mat-form-field class="full-width">
-    <mat-label>CPF</mat-label>
-    <input id="cpf" matInput placeholder="Ex. 000.000.000-00" [(ngModel)]="personForm.cpf" name="cpf">
-  </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label>CPF</mat-label>
+        <input matInput placeholder="Ex. 000.000.000-00" [(ngModel)]="personForm.cpf" name="cpf">
+    </mat-form-field>
 
-  <mat-form-field class="full-width">
-    <mat-label>Email</mat-label>
-    <input id="email" type="email" matInput placeholder="Ex. joaosilva@email.com" [(ngModel)]="personForm.email"
-      name="email">
-  </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label>Email</mat-label>
+        <input type="email" matInput placeholder="Ex. joaosilva@email.com" [(ngModel)]="personForm.email" name="email">
+    </mat-form-field>
 
-  <mat-form-field class="full-width">
-    <mat-label>Phone</mat-label>
-    <input id="telefone" type="tel" matInput placeholder="Ex. (11)90000-0000" [(ngModel)]="personForm.phone"
-      name="phone">
-  </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label>Phone</mat-label>
+        <input type="tel" matInput placeholder="Ex. (11)90000-0000" [(ngModel)]="personForm.phone" name="phone">
+    </mat-form-field>
 
-  <mat-form-field class="full-width">
-    <mat-label>Birthday</mat-label>
-    <input matInput [matDatepicker]="picker" [(ngModel)]="personForm.birthday" name="birthday" placeholder="dd/mm/yyyy">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label>Birthday</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="personForm.birthday" name="birthday" placeholder="dd/mm/yyyy">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
 </form>
 
 <div class="flex-botoes">
-  <button mat-raised-button (click)=ngOnInit()>List all</button>
-  <button mat-raised-button class="green" (click)=addPerson()>Add person</button>
-  <button mat-raised-button color="primary">Edit</button>
-  <button mat-raised-button color="warn" (click)=deletePerson()>Delete</button>
+    <button mat-raised-button (click)=ngOnInit()>List all</button>
+    <button mat-raised-button class="green" (click)=addPerson()>Add person</button>
+    <button mat-raised-button color="primary">Edit</button>
+    <button mat-raised-button color="warn" (click)=deletePerson()>Delete</button>
 </div>

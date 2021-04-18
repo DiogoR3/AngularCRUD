@@ -67,7 +67,7 @@ export class PersonComponent implements OnInit {
     )
   }
 
-  selectRow(row: Person) {
+  setPerson(row: Person) {
       this.personForm = row
   }
 }

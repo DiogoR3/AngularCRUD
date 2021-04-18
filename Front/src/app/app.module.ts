@@ -20,12 +20,12 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 
-import { TableModule } from './shared/table/table.module';
+import { TableModule } from './shared/modules/table/table.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PersonComponent
+    PersonComponent,
   ],
   imports: [
     BrowserModule,
