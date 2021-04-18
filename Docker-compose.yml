@@ -3,7 +3,7 @@ version: '3'
 services:
   apinetcore:
     image: projetoaspnetcore
-    build: ./TestePraticoWevo/
+    build: ./Backend/
     restart: unless-stopped
     ports:
       - 81:80
@@ -29,7 +29,7 @@ services:
     image: projetoangularenginx
     build: ./Front/
     ports:
-      - 80:80
+      - 4200:80
     networks:
       - my-network
 

@@ -13,12 +13,17 @@
   margin: 0 auto;
 }
 
-.full-width {
-  width: 100%;
+.mat-row {
+  cursor: pointer;;
+}
+
+.mat-row-clicked, .mat-row:hover{
+  background-color: #eee;
 }
 
 section {
   display: table;
+  cursor: crosshair;
 }
 
 .example-label {

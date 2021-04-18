@@ -12,34 +12,35 @@
       <th mat-header-cell *matHeaderCellDef> ID </th>
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Name </th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="cpf">
       <th mat-header-cell *matHeaderCellDef> CPF </th>
       <td mat-cell *matCellDef="let element"> {{element.cpf}} </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="email">
       <th mat-header-cell *matHeaderCellDef> E-mail </th>
       <td mat-cell *matCellDef="let element"> {{element.email}} </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="phone">
       <th mat-header-cell *matHeaderCellDef> Phone </th>
       <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
     </ng-container>
-  
+
     <ng-container matColumnDef="birthday">
       <th mat-header-cell *matHeaderCellDef> Birthday </th>
-      <td mat-cell *matCellDef="let element"> {{element.birthday}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.birthday | date:"dd/MM/yyyy" }} </td>
     </ng-container>
-  
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"
+      [ngClass]="row.id == personForm.id ? 'mat-row-clicked' : ''"></tr>
   </table>
 </ng-container>
 
@@ -60,25 +61,27 @@
 
   <mat-form-field class="full-width">
     <mat-label>Email</mat-label>
-    <input id="email" type="email" matInput placeholder="Ex. joaosilva@email.com" [(ngModel)]="personForm.email" name="email">
+    <input id="email" type="email" matInput placeholder="Ex. joaosilva@email.com" [(ngModel)]="personForm.email"
+      name="email">
   </mat-form-field>
 
   <mat-form-field class="full-width">
     <mat-label>Phone</mat-label>
-    <input id="telefone" type="tel" matInput placeholder="Ex. (11)90000-0000" [(ngModel)]="personForm.phone" name="phone">
+    <input id="telefone" type="tel" matInput placeholder="Ex. (11)90000-0000" [(ngModel)]="personForm.phone"
+      name="phone">
   </mat-form-field>
 
   <mat-form-field class="full-width">
     <mat-label>Birthday</mat-label>
-    <input id="birthday" type="date" matInput placeholder="Ex. 01/01/2000" [(ngModel)]="personForm.birthday" name="birthday">
+    <input matInput [matDatepicker]="picker" [(ngModel)]="personForm.birthday" name="birthday" placeholder="dd/mm/yyyy">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
   </mat-form-field>
 </form>
 
 <div class="flex-botoes">
   <button mat-raised-button (click)=ngOnInit()>List all</button>
   <button mat-raised-button class="green" (click)=addPerson()>Add person</button>
-  <button mat-raised-button color="primary">Editar</button>
-  <button mat-raised-button color="warn">Excluir</button>
+  <button mat-raised-button color="primary">Edit</button>
+  <button mat-raised-button color="warn" (click)=deletePerson()>Delete</button>
 </div>
-
-<button (click)=printDataSouce()>teste</button>

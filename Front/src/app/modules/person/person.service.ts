@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/';
 import { environment } from '../../../environments/environment';
 import { Person } from './person.model'
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private snackBar: MatSnackBar) { }
 
   private readonly baseURL: string = environment.apiUrl + '/person'
 
@@ -25,4 +26,16 @@ export class PersonService {
     return this.httpClient.post<Person>(this.baseURL, person);
   }
 
+  deletePerson(id: number): Observable<any> {
+    return this.httpClient.delete<any>(`${this.baseURL}/${id}`)
+  }
+
+  showMessage(message: string) : void {
+    this.snackBar.open(message, 'X', 
+    { 
+      duration: 3_000,
+      horizontalPosition: 'right',
+      verticalPosition: 'top', 
+    })
+  }
 }

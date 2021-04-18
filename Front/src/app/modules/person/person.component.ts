@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
+import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
 import { Person } from './person.model';
 import { Router } from '@angular/router';
 import { PersonService } from './person.service';
@@ -11,7 +10,7 @@ import { PersonService } from './person.service';
 })
 export class PersonComponent implements OnInit {
 
-  constructor(private router: Router, private personService: PersonService) { }
+  constructor(private eRef: ElementRef, router: Router, private personService: PersonService) { }
 
   displayedColumns: string[] = ['id', 'name', 'cpf', 'email', 'phone', 'birthday'];
   dataSource: Person[]
@@ -48,19 +47,27 @@ export class PersonComponent implements OnInit {
     this.personService.createPerson(this.personForm).subscribe(data => {
       
       this.dataSource.push(data)
+      this.personService.showMessage('Person added!')
       this.applyFilter()
     },
       error => console.log(error.message)
     )
   }
 
-  selectRow(row) {
-    console.log(row)
+  deletePerson(){
+
+    if(!this.personForm.id) return
+
+    this.personService.deletePerson(this.personForm.id).subscribe(data => {
+      this.personService.showMessage('Person deleted!')
+      this.dataSource = this.dataSource.filter(p => p.id != this.personForm.id)
+      this.applyFilter()
+    },
+      error => this.personService.showMessage('Could not delete person!')
+    )
   }
 
-  printDataSouce() {
-    console.log({ dataSource: this.dataSource })
-    console.log({ filteredDataSource: this.filteredDataSource })
+  selectRow(row: Person) {
+      this.personForm = row
   }
-
 }
