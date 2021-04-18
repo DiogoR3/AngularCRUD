@@ -7,11 +7,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 // person
-import { PersonComponent } from './modules/person/person.component';
+import { PersonComponent } from './person/person.component';
 
 // material
 import { MatInputModule } from '@angular/material/input';
-import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon';
@@ -20,6 +19,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+
+import { TableModule } from './shared/table/table.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     AppRoutingModule,
     HttpClientModule,
     MatInputModule,
-    MatTableModule,
     MatButtonModule,
     MatFormFieldModule,
     MatIconModule,
@@ -40,7 +40,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatNativeDateModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

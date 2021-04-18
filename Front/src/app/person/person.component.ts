@@ -39,8 +39,8 @@ export class PersonComponent implements OnInit {
 
   applyFilter() {
     this.search ?
-      this.filteredDataSource = this.dataSource.filter(p => p.name?.includes(this.search)) :
-      this.filteredDataSource = [... this.dataSource];
+      this.filteredDataSource = this.dataSource.filter(p => p.name?.toLowerCase().includes(this.search.toLowerCase())) :
+      this.filteredDataSource = [...this.dataSource];
   }
 
   addPerson() {
