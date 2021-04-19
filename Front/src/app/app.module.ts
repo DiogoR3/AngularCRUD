@@ -19,13 +19,16 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { TableModule } from './shared/modules/table/table.module';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PersonComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +44,8 @@ import { TableModule } from './shared/modules/table/table.module';
     MatSnackBarModule,
     MatNativeDateModule,
     MatDatepickerModule,
+    MatToolbarModule,
+
     TableModule
   ],
   providers: [],

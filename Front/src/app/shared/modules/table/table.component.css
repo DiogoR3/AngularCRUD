@@ -6,6 +6,10 @@ table {
     cursor: pointer;
 }
 
+.background {
+    background-color: var(--background-secondary);
+}
+
 .gray {
     background-color: #eee;
 }

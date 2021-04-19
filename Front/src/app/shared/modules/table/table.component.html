@@ -7,6 +7,6 @@
         </ng-container>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{ 'gray': selectedRow?.id == row.id }" (click)="selectRow(row)"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="background"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="background" [ngClass]="{ 'gray': selectedRow?.id == row.id }" (click)="selectRow(row)"></tr>
 </table>

@@ -45,6 +45,6 @@
 <div class="flex-botoes">
     <button mat-raised-button (click)=ngOnInit()>List all</button>
     <button mat-raised-button class="green" (click)=addPerson()>Add person</button>
-    <button mat-raised-button color="primary">Edit</button>
+    <button mat-raised-button color="primary" [disabled]="!personForm?.id">Edit</button>
     <button mat-raised-button color="warn" (click)=deletePerson()>Delete</button>
 </div>
