@@ -4,6 +4,10 @@
     width: 100%;
 }
 
+table {
+    margin-bottom: 15px;
+}
+
 .flex-botoes {
     display: flex;
     justify-content: space-around;
@@ -11,20 +15,30 @@
 
 .spinner {
     margin: 0 auto;
-}
-
-section {
-    display: table;
-    cursor: crosshair;
-}
-
-.example-label {
-    display: table-cell;
-    font-size: 14px;
-    margin-left: 8px;
-    min-width: 120px;
+    width: 70%;
+    color: #000;
 }
 
 .green {
     background-color: #0F3;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.gray {
+    background-color: #eee;
+}
+
+.orange {
+    color: #fa0;
+}
+
+.mr-10 {
+    margin-right: 10px;
+}
+
+.red {
+    color: #e00;
 }

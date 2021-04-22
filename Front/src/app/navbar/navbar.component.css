@@ -1,3 +1,17 @@
 .spacer {
     flex: 1 1 auto;
 }
+
+.logo {
+    margin-right: 50px;
+}
+
+a:visited,
+a:link {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    color: #00000075;
+}

@@ -27,6 +27,10 @@ export class PersonService {
     return this.httpClient.post<Person>(this.baseURL, person);
   }
 
+  updatePerson(person: Person): Observable<Person> {
+    return this.httpClient.put<Person>(`${this.baseURL}/${person.id}`, person);
+  }
+
   deletePerson(id: number): Observable<any> {
     return this.httpClient.delete<any>(`${this.baseURL}/${id}`)
   }

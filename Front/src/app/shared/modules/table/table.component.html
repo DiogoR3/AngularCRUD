@@ -1,4 +1,4 @@
-<table (clickOutside)="$event == true ? selectRow(0) : null" mat-table [dataSource]="dataSource" class="mat-elevation-z4 full-width">
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z4 full-width">
 
     <ng-container *ngFor="let column of displayedColumns">
         <ng-container matColumnDef="{{ column }}">

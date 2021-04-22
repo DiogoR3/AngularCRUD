@@ -20,15 +20,21 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { TableModule } from './shared/modules/table/table.module';
 import { NavbarComponent } from './navbar/navbar.component';
+import { IndexComponent } from './index/index.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PersonComponent,
     NavbarComponent,
+    IndexComponent,
+    PersonComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +51,10 @@ import { NavbarComponent } from './navbar/navbar.component';
     MatNativeDateModule,
     MatDatepickerModule,
     MatToolbarModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatSlideToggleModule,
 
     TableModule
   ],

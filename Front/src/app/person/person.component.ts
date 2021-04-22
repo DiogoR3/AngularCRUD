@@ -1,6 +1,9 @@
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
-import { Person } from './person.model';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { Person, emptyPerson } from './person.model';
 import { PersonService } from './person.service';
 
 @Component({
@@ -12,62 +15,80 @@ export class PersonComponent implements OnInit {
 
   constructor(private eRef: ElementRef, router: Router, private personService: PersonService) { }
 
-  displayedColumns: string[] = ['id', 'name', 'cpf', 'email', 'phone', 'birthday'];
-  dataSource: Person[]
-  filteredDataSource: Person[]
-  search: string
-  loaded: boolean
+  displayedColumns: string[] = ['id', 'name', 'cpf', 'email', 'phone', 'birthday', 'action'];
+  dataSource = new MatTableDataSource<Person>();
+  loaded: boolean;
+  search: string;
 
-  personForm: Person = {
-    name: null,
-    cpf: null,
-    email: null,
-    phone: null,
-    birthday: null
-  }
+  personForm: Person = emptyPerson();
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit(): void {
 
-    this.loaded = false
+    this.loaded = false;
 
     this.personService.getPerson().subscribe(
-      data => this.dataSource = this.filteredDataSource = data,
+      data => this.dataSource.data = data,
       error => console.log(error.message),
-      () => this.loaded = true
+      () => {
+        this.loaded = true;
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
     )
   }
 
   applyFilter() {
-    this.search ?
-      this.filteredDataSource = this.dataSource.filter(p => p.name?.toLowerCase().includes(this.search.toLowerCase())) :
-      this.filteredDataSource = [...this.dataSource];
+    this.dataSource.filter = this.search;
   }
 
   addPerson() {
     this.personService.createPerson(this.personForm).subscribe(data => {
-      
-      this.dataSource.push(data)
+      this.addToDataSource(data)
       this.personService.showMessage('Person added!')
-      this.applyFilter()
     },
       error => console.log(error.message)
     )
   }
 
-  deletePerson(){
+  updatePerson() {
+    this.personService.updatePerson(this.personForm).subscribe(data => {
+      this.personService.showMessage('Person updated!')
+    },
+      error => this.personService.showMessage('Could not update person!')
+    )
+  }
 
-    if(!this.personForm.id) return
+  deletePerson() {
+
+    if (!this.personForm.id) return
 
     this.personService.deletePerson(this.personForm.id).subscribe(data => {
+      this.removeFromDataSource(this.personForm)
       this.personService.showMessage('Person deleted!')
-      this.dataSource = this.dataSource.filter(p => p.id != this.personForm.id)
-      this.applyFilter()
     },
       error => this.personService.showMessage('Could not delete person!')
     )
   }
 
   setPerson(row: Person) {
-      this.personForm = row
+    this.personForm = row
+  }
+
+  private addToDataSource(person: Person) {
+    this.dataSource.data.push(person)
+    this.dataSource.paginator = this.paginator;
+  }
+
+  private removeFromDataSource(person: Person) {
+    const index = this.dataSource.data.indexOf(person);
+
+    if (index > -1) {
+      this.dataSource.data.splice(index, 1);
+    }
+
+    this.dataSource.paginator = this.paginator;
   }
 }
