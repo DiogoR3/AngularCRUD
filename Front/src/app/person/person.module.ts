@@ -1,13 +1,5 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-
-import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-
-// person
-import { PersonComponent } from './person/person.component';
+import { CommonModule } from '@angular/common';
 
 // material
 import { MatInputModule } from '@angular/material/input';
@@ -25,41 +17,40 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
-import { TableModule } from './shared/modules/table/table.module';
-import { NavbarComponent } from './navbar/navbar.component';
-import { PersonModule } from './person/person.module';
-import { PersonRoutingModule } from './person/person.routing.module';
+import { PersonComponent } from './person.component';
+import { PersonEditComponent } from './edit/person.edit.component';
+import { PersonRoutingModule } from './person.routing.module';
+import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from '../app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { TableModule } from '../shared/modules/table/table.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavbarComponent
-  
+    PersonComponent,
+    PersonEditComponent,
   ],
   imports: [
-    BrowserModule,
+    CommonModule,
     FormsModule,
     AppRoutingModule,
-
-    PersonRoutingModule,
-
-    BrowserAnimationsModule,
     HttpClientModule,
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
     MatIconModule,
+    BrowserAnimationsModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatNativeDateModule,
     MatDatepickerModule,
     MatToolbarModule,
-    MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatSlideToggleModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    MatSlideToggleModule,
+
+    PersonRoutingModule,
+    TableModule
+  ]
 })
-export class AppModule { }
+export class PersonModule { }

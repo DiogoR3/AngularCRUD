@@ -1,35 +1,36 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { MatSort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, AfterViewInit {
 
-  private _dataSource: any;
-
-  @Input() set dataSource(value: any){
-    this._dataSource = value;
-    this.selectRow({id:null});
-  }
-
-  get dataSource(): any {
-    return this._dataSource;
-  }
-
+  @Input() dataSource: MatTableDataSource<any>;
   @Input() displayedColumns: string[];
-  @Output() rowClick: EventEmitter<any> = new EventEmitter<any>();
-
-  selectedRow: any;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+  
+  loaded: boolean = true;
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
-  selectRow(row: any): void {
-    this.selectedRow = row;
-    this.rowClick.emit(this.selectedRow);
+  rowClick(): void {
+    console.log(this.dataSource.data)
+  }
+  teste(a){
+    console.log(a)
   }
 }

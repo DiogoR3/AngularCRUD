@@ -1,9 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
+
 import { MatTableModule } from '@angular/material/table';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatIconModule } from '@angular/material/icon';
+import { ClickOutsideDirective } from '../../directives/clickoutside.directive';
 
 import { TableComponent } from './table.component';
-import { ClickOutsideDirective } from '../../directives/clickoutside.directive';
 
 @NgModule({
   declarations: [
@@ -11,8 +18,14 @@ import { ClickOutsideDirective } from '../../directives/clickoutside.directive';
     ClickOutsideDirective
   ],
   imports: [
+    CommonModule,
+    RouterModule,
+    BrowserModule,
     MatTableModule,
-    CommonModule
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatIconModule
   ],
   exports: [TableComponent]
 })

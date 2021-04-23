@@ -1,8 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatSort } from '@angular/material/sort';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import { Person, emptyPerson } from './person.model';
 import { PersonService } from './person.service';
 
@@ -13,29 +11,23 @@ import { PersonService } from './person.service';
 })
 export class PersonComponent implements OnInit {
 
-  constructor(private eRef: ElementRef, router: Router, private personService: PersonService) { }
+  constructor(router: Router, private personService: PersonService) { }
 
   displayedColumns: string[] = ['id', 'name', 'cpf', 'email', 'phone', 'birthday', 'action'];
-  dataSource = new MatTableDataSource<Person>();
+  dataSource: MatTableDataSource<Person>;
   loaded: boolean;
   search: string;
 
   personForm: Person = emptyPerson();
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
   ngOnInit(): void {
 
     this.loaded = false;
-
     this.personService.getPerson().subscribe(
-      data => this.dataSource.data = data,
+      data => this.dataSource = new MatTableDataSource<Person>(data),
       error => console.log(error.message),
       () => {
         this.loaded = true;
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
       },
     )
   }
@@ -79,7 +71,6 @@ export class PersonComponent implements OnInit {
 
   private addToDataSource(person: Person) {
     this.dataSource.data.push(person)
-    this.dataSource.paginator = this.paginator;
   }
 
   private removeFromDataSource(person: Person) {
@@ -88,7 +79,5 @@ export class PersonComponent implements OnInit {
     if (index > -1) {
       this.dataSource.data.splice(index, 1);
     }
-
-    this.dataSource.paginator = this.paginator;
   }
 }
