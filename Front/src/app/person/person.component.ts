@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { Person, emptyPerson } from './person.model';
 import { PersonService } from './person.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogComponent } from '../shared/modules/dialog/dialog.component';
 
 @Component({
   selector: 'app-person',
@@ -11,7 +13,7 @@ import { PersonService } from './person.service';
 })
 export class PersonComponent implements OnInit {
 
-  constructor(router: Router, private personService: PersonService) { }
+  constructor(router: Router, private personService: PersonService, private dialog: MatDialog) { }
 
   displayedColumns: string[] = ['id', 'name', 'cpf', 'email', 'phone', 'birthday', 'action'];
   dataSource: MatTableDataSource<Person>;
@@ -80,4 +82,17 @@ export class PersonComponent implements OnInit {
       this.dataSource.data.splice(index, 1);
     }
   }
+
+  deleteRow(rowId: number): void {
+    if (!rowId) return
+
+    this.personService.deletePerson(rowId).subscribe(data => {
+      this.removeFromDataSource(this.personForm)
+      this.personService.showMessage('Person deleted!')
+    },
+      error => this.personService.showMessage('Could not delete person!')
+    )
+  }
+
 }
+

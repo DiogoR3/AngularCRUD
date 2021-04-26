@@ -1,32 +1,33 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+// material
 import { MatTableModule } from '@angular/material/table';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatIconModule } from '@angular/material/icon';
-import { ClickOutsideDirective } from '../../directives/clickoutside.directive';
 
+// table
 import { TableComponent } from './table.component';
+import { ClickOutsideDirective } from '../../directives/clickoutside.directive';
 
 @NgModule({
   declarations: [
-    TableComponent, 
+    TableComponent,
     ClickOutsideDirective
   ],
   imports: [
     CommonModule,
+    BrowserAnimationsModule,
     RouterModule,
-    BrowserModule,
     MatTableModule,
-    MatProgressSpinnerModule,
     MatPaginatorModule,
     MatSortModule,
     MatIconModule
   ],
+  providers: [DatePipe],
   exports: [TableComponent]
 })
 

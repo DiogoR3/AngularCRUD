@@ -1,8 +1,12 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AfterViewInit } from '@angular/core';
+import { DialogComponent } from '../dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-table',
@@ -15,10 +19,12 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Input() displayedColumns: string[];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  
-  loaded: boolean = true;
+  @Output() deleteRow: EventEmitter<Boolean> = new EventEmitter<Boolean>();
 
-  constructor() { }
+  loaded: boolean = true;
+  clickedRow: number = 0;
+
+  constructor(private datePipe: DatePipe, private dialog: MatDialog) { }
 
   ngOnInit(): void { }
 
@@ -27,10 +33,30 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.dataSource.sort = this.sort;
   }
 
-  rowClick(): void {
-    console.log(this.dataSource.data)
+  rowClick(rowId: number): void {
+    this.clickedRow = rowId;
   }
-  teste(a){
-    console.log(a)
+
+  dateFormat(input: any): string {
+
+    if (!isNaN(input) || input.length < 10 || input.substr(4, 1) != '-' || input.substr(7, 1) != '-')
+      return input;
+
+    return this.datePipe.transform(input, 'yyyy-MM-dd');
+  }
+
+  openDeleteDialog(element: any): void {
+    this.dialog.open(DialogComponent, { data: { 
+      title: "Do you really want to delete this item?", 
+      content: `<strong>ID: </strong>${element.id}<br><strong>CPF: </strong>${element.cpf}`, 
+      cancelTxt: "Cancel", 
+      confirmTxt: "Delete" 
+    } 
+    })
+    .afterClosed().subscribe(confirmed => {
+      if(confirmed){
+        this.deleteRow.emit(element?.id ?? 0);
+      }
+    });
   }
 }

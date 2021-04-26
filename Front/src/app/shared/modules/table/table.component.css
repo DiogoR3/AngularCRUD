@@ -13,3 +13,19 @@ table {
 .mousePointer {
     cursor: pointer;
 }
+
+.mr-10 {
+    margin-right: 10px;
+}
+
+.gray {
+    background-color: #eee;
+}
+
+.orange {
+    color: #fa0;
+}
+
+.red {
+    color: #e00;
+}

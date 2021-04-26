@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Backend.Models;
 using Backend.Service;
+using System.Threading.Tasks;
 
 namespace Backend.Controllers
 {
@@ -17,8 +18,9 @@ namespace Backend.Controllers
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Person>> List()
+        public async Task<ActionResult<IEnumerable<Person>>> List()
         {
+            await Task.Delay(500);
             return PersonService.List();
         }
 
