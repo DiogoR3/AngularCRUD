@@ -2,8 +2,8 @@
     <a class="logo" routerLink="">
         <ng-content></ng-content>
     </a>
-    <a routerLink="/person">Person</a>
-    <span class="spacer"></span>
+    <a routerLink="/person" [routerLinkActive]="['is-active']">Person</a>
+    <span class=" spacer "></span>
     <button mat-icon-button aria-label="Change theme" (click)="changeTheme()">
         <mat-icon>format_color_fill</mat-icon>
     </button>

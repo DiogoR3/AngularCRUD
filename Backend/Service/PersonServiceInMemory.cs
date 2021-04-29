@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Backend.Models;
 using Backend.Repository;
 
@@ -24,37 +25,37 @@ namespace Backend.Service
             return Context.Person.Where(p => p.Id == id).FirstOrDefault();
         }
 
-        public Person Create(Person pessoa)
+        public async Task<Person> CreateAsync(Person person)
         {
-            pessoa.Id = 0;
-            Context.Person.Add(pessoa);
-            Context.SaveChanges();
-            return pessoa;
+            person.Id = 0;
+            await Context.Person.AddAsync(person);
+            await Context.SaveChangesAsync();
+            return person;
         }
 
-        public void Update(int id, Person pessoa)
+        public async Task UpdateAsync(int id, Person person)
         {
-            Person pessoaAtual = Context.Person.Where(p => p.Id == pessoa.Id).FirstOrDefault();
+            Person pessoaAtual = Context.Person.Where(p => p.Id == person.Id).FirstOrDefault();
 
             if (pessoaAtual is null)
             {
-                pessoa.Id = 0;
-                Context.Person.Add(pessoa);
+                person.Id = 0;
+                await Context.Person.AddAsync(person);
             }
             else
-                Context.Entry(Context.Person.FirstOrDefault(p => p.Id == id)).CurrentValues.SetValues(pessoa);
+                Context.Entry(Context.Person.FirstOrDefault(p => p.Id == id)).CurrentValues.SetValues(person);
 
-            Context.SaveChanges();
+            await Context.SaveChangesAsync();
         }
 
-        public void Remove(int id)
+        public async Task RemoveAsync(int id)
         {
             Person pessoa = Context.Person.Where(p => p.Id == id).FirstOrDefault();
 
             if (pessoa is not null)
             {
                 Context.Person.Remove(pessoa);
-                Context.SaveChanges();
+                await Context.SaveChangesAsync();
             }
         }
     }

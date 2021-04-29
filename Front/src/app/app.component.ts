@@ -14,6 +14,6 @@ export class AppComponent {
   }
 
   changeTheme(isDark: Boolean) {
-    
+    console.log(isDark)
   }
 }

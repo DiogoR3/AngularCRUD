@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 // material
@@ -20,15 +20,18 @@ import { PersonRoutingModule } from './person.routing.module';
 
 // modules
 import { TableModule } from '../shared/modules/table/table.module';
+import { PersonFormComponent } from './form/person.form.component';
 
 @NgModule({
   declarations: [
     PersonComponent,
-    PersonEditComponent
+    PersonEditComponent,
+    PersonFormComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     MatInputModule,
     MatIconModule,

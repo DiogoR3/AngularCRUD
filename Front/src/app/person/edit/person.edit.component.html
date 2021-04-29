@@ -1,1 +1,2 @@
-<h1>edit person</h1>
+<h1>Editing person {{ personId }}</h1>
+<app-person-form [submitText]="'Save Person'" [person]="person | async" (onSubmit)="updatePerson($event)"></app-person-form>

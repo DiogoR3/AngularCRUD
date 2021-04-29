@@ -1,10 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
-import { Person, emptyPerson } from './person.model';
+import { Person } from './person.model';
 import { PersonService } from './person.service';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { DialogComponent } from '../shared/modules/dialog/dialog.component';
+import { FormBuilder } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-person',
@@ -13,86 +13,43 @@ import { DialogComponent } from '../shared/modules/dialog/dialog.component';
 })
 export class PersonComponent implements OnInit {
 
-  constructor(router: Router, private personService: PersonService, private dialog: MatDialog) { }
+  constructor(router: Router, private personService: PersonService, private fb: FormBuilder) { }
 
-  displayedColumns: string[] = ['id', 'name', 'cpf', 'email', 'phone', 'birthday', 'action'];
-  dataSource: MatTableDataSource<Person>;
+  displayedColumns: string[] = ['id', 'name', 'cpf', 'email', 'phone', 'birthdate', 'action'];
+  dataSource: MatTableDataSource<Person> = new MatTableDataSource<Person>();
   loaded: boolean;
   search: string;
 
-  personForm: Person = emptyPerson();
-
   ngOnInit(): void {
+    this.loaded = false
 
-    this.loaded = false;
     this.personService.getPerson().subscribe(
       data => this.dataSource = new MatTableDataSource<Person>(data),
       error => console.log(error.message),
-      () => {
-        this.loaded = true;
-      },
-    )
+      () => this.loaded = true)
   }
 
   applyFilter() {
     this.dataSource.filter = this.search;
   }
 
-  addPerson() {
-    this.personService.createPerson(this.personForm).subscribe(data => {
-      this.addToDataSource(data)
+  addPerson(person: Person) {
+    this.personService.createPerson(person).subscribe(data => {
       this.personService.showMessage('Person added!')
+      this.ngOnInit()
     },
-      error => console.log(error.message)
+      error => console.log(error)
     )
   }
 
-  updatePerson() {
-    this.personService.updatePerson(this.personForm).subscribe(data => {
-      this.personService.showMessage('Person updated!')
-    },
-      error => this.personService.showMessage('Could not update person!')
-    )
-  }
-
-  deletePerson() {
-
-    if (!this.personForm.id) return
-
-    this.personService.deletePerson(this.personForm.id).subscribe(data => {
-      this.removeFromDataSource(this.personForm)
-      this.personService.showMessage('Person deleted!')
-    },
-      error => this.personService.showMessage('Could not delete person!')
-    )
-  }
-
-  setPerson(row: Person) {
-    this.personForm = row
-  }
-
-  private addToDataSource(person: Person) {
-    this.dataSource.data.push(person)
-  }
-
-  private removeFromDataSource(person: Person) {
-    const index = this.dataSource.data.indexOf(person);
-
-    if (index > -1) {
-      this.dataSource.data.splice(index, 1);
-    }
-  }
-
-  deleteRow(rowId: number): void {
+  deletePerson(rowId: number): void {
     if (!rowId) return
 
     this.personService.deletePerson(rowId).subscribe(data => {
-      this.removeFromDataSource(this.personForm)
       this.personService.showMessage('Person deleted!')
+      this.ngOnInit()
     },
       error => this.personService.showMessage('Could not delete person!')
     )
   }
-
 }
-

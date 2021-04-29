@@ -4,14 +4,5 @@ export interface Person {
     cpf: string,
     email: string,
     phone: string,
-    birthday: Date
+    birthdate: Date
 }
-
-export const emptyPerson = (): Person => ({
-    id: 0,
-    name: null,
-    cpf: null,
-    email: null,
-    phone: null,
-    birthday: null
-})

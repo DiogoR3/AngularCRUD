@@ -38,7 +38,6 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
 
   dateFormat(input: any): string {
-
     if (!isNaN(input) || input.length < 10 || input.substr(4, 1) != '-' || input.substr(7, 1) != '-')
       return input;
 
@@ -48,7 +47,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   openDeleteDialog(element: any): void {
     this.dialog.open(DialogComponent, { data: { 
       title: "Do you really want to delete this item?", 
-      content: `<strong>ID: </strong>${element.id}<br><strong>CPF: </strong>${element.cpf}`, 
+      content: `<strong>${this.displayedColumns[0].toUpperCase()}: </strong>${element.id}<br><strong>${this.displayedColumns[1].toUpperCase()}: </strong>${element.name}`, 
       cancelTxt: "Cancel", 
       confirmTxt: "Delete" 
     } 

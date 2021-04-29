@@ -2,33 +2,8 @@ table {
     margin-bottom: 15px;
 }
 
-.flex-buttons {
-    display: flex;
-    justify-content: space-around;
-}
-
 .spinner {
     margin: 0 auto;
-}
-
-.green {
-    background-color: #0F3;
-}
-
-.pointer {
-    cursor: pointer;
-}
-
-.gray {
-    background-color: #eee;
-}
-
-.orange {
-    color: #fa0;
-}
-
-.mr-10 {
-    margin-right: 10px;
 }
 
 .red {

@@ -20,10 +20,11 @@ export class PersonService {
   }
 
   getPersonById(id: number): Observable<Person> {
-    return this.httpClient.get<Person>(this.baseURL);
+    return this.httpClient.get<Person>(`${this.baseURL}/${id}`);
   }
 
   createPerson(person: Person): Observable<Person> {
+    person.id = 0
     return this.httpClient.post<Person>(this.baseURL, person);
   }
 
@@ -38,7 +39,7 @@ export class PersonService {
   showMessage(message: string) : void {
     this.snackBar.open(message, 'X', 
     { 
-      duration: 3_000,
+      duration: 5_000,
       horizontalPosition: 'right',
       verticalPosition: 'top', 
     })

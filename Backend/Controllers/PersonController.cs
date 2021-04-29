@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using Backend.Models;
+﻿using Backend.Models;
 using Backend.Service;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Backend.Controllers
@@ -18,9 +18,8 @@ namespace Backend.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Person>>> List()
+        public ActionResult<IEnumerable<Person>> List()
         {
-            await Task.Delay(500);
             return PersonService.List();
         }
 
@@ -28,34 +27,30 @@ namespace Backend.Controllers
         public ActionResult<Person> Get(int id)
         {
             Person person = PersonService.Get(id);
-
-            if (person is null)
-                return NotFound();
-
-            return person;
+            return person is null ? NotFound() : person;
         }
 
         [HttpPost]
-        public ActionResult<Person> Create(Person person)
+        public async Task<ActionResult<Person>> CreateAsync(Person person)
         {
-            Person newPerson = PersonService.Create(person);
+            Person newPerson = await PersonService.CreateAsync(person);
             return CreatedAtAction("Create", newPerson);
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Person> CreateOrUpdate(int id, Person person)
+        public async Task<ActionResult<Person>> CreateOrUpdateAsync(int id, Person person)
         {
             if (person?.Id != id)
                 return BadRequest();
 
-            PersonService.Update(id, person);
+            await PersonService.UpdateAsync(id, person);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<Person> Delete(int id)
+        public async Task<ActionResult<Person>> DeleteAsync(int id)
         {
-            PersonService.Remove(id);
+            await PersonService.RemoveAsync(id);
             return NoContent();
         }
     }

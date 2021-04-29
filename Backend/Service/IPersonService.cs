@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Backend.Models;
 
 namespace Backend.Service
@@ -7,8 +8,8 @@ namespace Backend.Service
     {
         public List<Person> List();
         public Person Get(int id);
-        public Person Create(Person pessoa);
-        public void Update(int id, Person pessoa);
-        public void Remove(int id);
+        public Task<Person> CreateAsync(Person pessoa);
+        public Task UpdateAsync(int id, Person pessoa);
+        public Task RemoveAsync(int id);
     }
 }
