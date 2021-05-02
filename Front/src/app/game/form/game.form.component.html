@@ -1,0 +1,25 @@
+<form [formGroup]="gameForm" #formDirective="ngForm" (ngSubmit)="submit(formDirective)">
+    <mat-form-field class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Angular CRUD" formControlName="name" required>
+        <mat-error>{{ getNameErrorMessage() }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-label>Publisher</mat-label>
+        <input matInput placeholder="Publisher" formControlName="publisher" required>
+        <mat-error>{{ getPublisherErrorMessage() }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+        <mat-label>Launch</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="launch" placeholder="mm/dd/yyyy" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error>{{ getLaunchErrorMessage() }}</mat-error>
+    </mat-form-field>
+
+    <div class="flex-buttons">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!gameForm.valid">{{ submitText }}</button>
+    </div>
+</form>

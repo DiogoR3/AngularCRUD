@@ -3,8 +3,11 @@
         <ng-content></ng-content>
     </a>
 
-    <button *ngIf="isPersonRoute()" mat-stroked-button routerLink="/person" class="nav-button">Person</button>
-    <button *ngIf="!isPersonRoute()" mat-button routerLink="/person" class="nav-button">Person</button>
+    <button *ngIf="isRoute('person')" mat-stroked-button routerLink="/person" class="nav-button">Person</button>
+    <button *ngIf="!isRoute('person')" mat-button routerLink="/person" class="nav-button">Person</button>
+
+    <button *ngIf="isRoute('game')" mat-stroked-button routerLink="/game" class="nav-button">Game</button>
+    <button *ngIf="!isRoute('game')" mat-button routerLink="/game" class="nav-button">Game</button>
 
     <span class="spacer"></span>
     <button mat-icon-button aria-label="Change theme" (click)="changeTheme()">

@@ -8,12 +8,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
-// navbar
+// generic
 import { NavbarComponent } from './navbar/navbar.component';
+import { DialogModule } from './shared/modules/dialog/dialog.module';
 
 // person
 import { PersonModule } from './person/person.module';
-import { DialogModule } from './shared/modules/dialog/dialog.module';
+
+// game
+import { GameModule } from './game/game.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,8 @@ import { DialogModule } from './shared/modules/dialog/dialog.module';
     MatToolbarModule,
 
     DialogModule,
-    PersonModule
+    PersonModule,
+    GameModule
   ],
   providers: [],
   bootstrap: [AppComponent]

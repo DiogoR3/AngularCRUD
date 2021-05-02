@@ -24,7 +24,7 @@
 
     <mat-form-field class="full-width">
         <mat-label>Birthdate</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="birthdate" placeholder="dd/mm/yyyy" required>
+        <input matInput [matDatepicker]="picker" formControlName="birthdate" placeholder="mm/dd/yyyy" required>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <mat-error>{{ getBirthdateErrorMessage() }}</mat-error>

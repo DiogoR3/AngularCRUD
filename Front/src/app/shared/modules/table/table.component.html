@@ -11,7 +11,7 @@
 
             <th mat-header-cell *matHeaderCellDef> {{ col | uppercase }} </th>
             <td mat-cell *matCellDef="let element">
-                <a routerLink="/person/{{element.id}}/edit">
+                <a routerLink="/{{entityName}}/{{element.id}}/edit">
                     <mat-icon class="orange mr-10">edit</mat-icon>
                 </a>
                 <a (click)="openDeleteDialog(element)">

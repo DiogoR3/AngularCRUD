@@ -1,0 +1,2 @@
+<h1>Editing game {{ gameId }}</h1>
+<app-game-form [submitText]="'Save Game'" [game]="game | async" (onSubmit)="updateGame($event)"></app-game-form>

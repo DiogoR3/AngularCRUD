@@ -21,8 +21,8 @@ export class NavbarComponent implements OnInit {
     return this.themeService.isDark
   }
 
-  isPersonRoute() : Boolean {
-    return this.router.url.indexOf('person') > 0
+  isRoute(route: string) : Boolean {
+    return this.router.url.indexOf(route) > 0
   }
 
 }

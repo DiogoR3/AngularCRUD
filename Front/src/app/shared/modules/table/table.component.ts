@@ -17,6 +17,7 @@ export class TableComponent implements OnInit, AfterViewInit {
 
   @Input() dataSource: MatTableDataSource<any>;
   @Input() displayedColumns: string[];
+  @Input() entityName: string;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @Output() deleteRow: EventEmitter<Boolean> = new EventEmitter<Boolean>();

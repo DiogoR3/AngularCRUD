@@ -5,10 +5,10 @@
     </mat-form-field>
 </div>
 
-<app-table *ngIf="loaded;else spinner" [entityName]="'person'" [dataSource]="dataSource" [displayedColumns]="displayedColumns" (deleteRow)="deletePerson($event)"></app-table>
+<app-table *ngIf="loaded;else spinner" [entityName]="'game'" [dataSource]="dataSource" [displayedColumns]="displayedColumns" (deleteRow)="deleteGame($event)"></app-table>
 
 <ng-template #spinner>
     <mat-spinner class="spinner"></mat-spinner>
 </ng-template>
 
-<app-person-form [submitText]="'Add Person'" (onSubmit)="addPerson($event)"></app-person-form>
+<app-game-form [submitText]="'Add Game'" (onSubmit)="addGame($event)"></app-game-form>
