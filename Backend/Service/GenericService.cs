@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.Models;
 using Backend.Repository;
-using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Service
 {
