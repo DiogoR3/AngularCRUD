@@ -3,14 +3,14 @@ using Backend.Models;
 
 namespace Backend.Repository
 {
-    public class PersonContext : DbContext
+    public class CrudContext : DbContext
     {
-        public PersonContext(DbContextOptions<PersonContext> options) : base(options)
+        public CrudContext(DbContextOptions<CrudContext> options) : base(options)
         {
             Database.EnsureCreated();
         }
 
         public DbSet<Person> Person { get; set; }
-
+        public DbSet<Game> Game { get; set; }
     }
 }

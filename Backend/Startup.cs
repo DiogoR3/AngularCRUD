@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Backend.Repository;
 using Backend.Service;
+using Backend.Models;
 
 namespace Backend
 {
@@ -30,7 +31,7 @@ namespace Backend
             // Para fazer injecao de dependencia da classe servico ja com o DbContext
             bool useInMemory = Configuration.GetValue<bool>("UseInMemory");
 
-            services.AddDbContext<PersonContext>(opt =>
+            services.AddDbContext<CrudContext>(opt =>
             {
                 if (useInMemory)
                     opt.UseInMemoryDatabase("MemoryDB", null);
@@ -38,7 +39,8 @@ namespace Backend
                     opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            _ = useInMemory ? services.AddScoped<IPersonService, PersonServiceInMemory>() : services.AddScoped<IPersonService, PersonService>();
+            // _ = useInMemory ? services.AddScoped<IGenericService<Person>>, GenericService<Person>>() : services.AddScoped<IGenericService, GenericService>();
+            _ = useInMemory ? services.AddScoped(typeof(IGenericService<>), typeof(GenericServiceInMemory<>)) : services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

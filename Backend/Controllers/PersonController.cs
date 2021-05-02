@@ -10,23 +10,23 @@ namespace Backend.Controllers
     [Route("[controller]")]
     public class PersonController : ControllerBase
     {
-        private readonly IPersonService PersonService;
+        private readonly IGenericService<Person> PersonService;
 
-        public PersonController(IPersonService personService)
+        public PersonController(IGenericService<Person> personService)
         {
             PersonService = personService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Person>> List()
+        public async Task<ActionResult<IEnumerable<Person>>> ListAsync()
         {
-            return PersonService.List();
+            return await PersonService.ListAsync();
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Person> Get(int id)
+        public async Task<ActionResult<Person>> GetAsync(int id)
         {
-            Person person = PersonService.Get(id);
+            Person person = await PersonService.GetAsync(id);
             return person is null ? NotFound() : person;
         }
 
