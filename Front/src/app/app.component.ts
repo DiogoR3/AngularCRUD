@@ -14,6 +14,7 @@ export class AppComponent {
   }
 
   changeTheme(isDark: Boolean) {
-    console.log(isDark)
+    let theme = document.getElementById('themeAsset') as HTMLLinkElement
+    theme.href = isDark ? "assets/purple-green.css" : "assets/deeppurple-amber.css"
   }
 }
