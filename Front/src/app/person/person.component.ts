@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { Person } from './person.model';
 import { PersonService } from './person.service';
-import { FormBuilder } from '@angular/forms';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-person',
@@ -13,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class PersonComponent implements OnInit {
 
-  constructor(router: Router, private personService: PersonService, private fb: FormBuilder) { }
+  constructor(private personService: PersonService) { }
 
   displayedColumns: string[] = ['id', 'name', 'cpf', 'email', 'phone', 'birthdate', 'action'];
   dataSource: MatTableDataSource<Person> = new MatTableDataSource<Person>();

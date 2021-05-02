@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { Game } from './game.model';
 import { GameService } from './game.service';
-import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-game',
@@ -12,7 +10,7 @@ import { FormBuilder } from '@angular/forms';
 })
 export class GameComponent implements OnInit {
 
-  constructor(router: Router, private gameService: GameService, private fb: FormBuilder) { }
+  constructor(private gameService: GameService) { }
 
   displayedColumns: string[] = ['id', 'name', 'publisher', 'launch', 'action'];
   dataSource: MatTableDataSource<Game> = new MatTableDataSource<Game>();
