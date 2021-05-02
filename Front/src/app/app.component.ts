@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ThemeService } from './shared/services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -11,10 +12,5 @@ export class AppComponent {
 
   ngOnInit() {
 
-  }
-
-  changeTheme(isDark: Boolean) {
-    let theme = document.getElementById('themeAsset') as HTMLLinkElement
-    theme.href = isDark ? "assets/purple-green.css" : "assets/deeppurple-amber.css"
   }
 }

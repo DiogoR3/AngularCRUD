@@ -1,4 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ThemeService } from '../shared/services/theme.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,14 +9,20 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  @Output() DarkTheme: EventEmitter<Boolean> = new EventEmitter<Boolean>();
-  darkTheme: Boolean
-  constructor() { }
+  constructor(private themeService: ThemeService, private router: Router) { }
 
   ngOnInit(): void { }
 
   changeTheme() {
-    this.darkTheme = !this.darkTheme;
-    this.DarkTheme.emit(this.darkTheme);
+    this.themeService.toggleTheme()
   }
+
+  themeIsDark() : Boolean {
+    return this.themeService.isDark
+  }
+
+  isPersonRoute() : Boolean {
+    return this.router.url.indexOf('person') > 0
+  }
+
 }

@@ -12,10 +12,6 @@ a:link {
     color: inherit;
 }
 
-a:hover {
-    color: #00000075;
-}
-
-.is-active {
-    border-bottom: 2px solid #000;
+.nav-button {
+    font-size: inherit;
 }
