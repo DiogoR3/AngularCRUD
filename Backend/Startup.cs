@@ -28,19 +28,11 @@ namespace Backend
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Backend", Version = "v1" });
             });
 
-            // Para fazer injecao de dependencia da classe servico ja com o DbContext
-            bool useInMemory = Configuration.GetValue<bool>("UseInMemory");
-
-            services.AddDbContext<CrudContext>(opt =>
-            {
-                if (useInMemory)
-                    opt.UseInMemoryDatabase("MemoryDB", null);
-                else
-                    opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-            });
+            services.AddDbContext<CrudContext>(opt => _ = Configuration.GetValue<bool>("UseInMemory") ? opt.UseInMemoryDatabase("MemoryDB") : opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // _ = useInMemory ? services.AddScoped<IGenericService<Person>>, GenericService<Person>>() : services.AddScoped<IGenericService, GenericService>();
-            _ = useInMemory ? services.AddScoped(typeof(IGenericService<>), typeof(GenericServiceInMemory<>)) : services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
+            services.AddScoped<IGenericService<Game>, GenericService<Game>>();
+            services.AddScoped<IGenericService<Person>, GenericService<Person>>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
