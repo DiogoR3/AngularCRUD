@@ -13,7 +13,7 @@ export class GameService {
 
   constructor(private httpClient: HttpClient, private snackBar: MatSnackBar) { }
 
-  private readonly baseURL: string = environment.apiUrl + '/game'
+  private readonly baseURL: string = environment.apiUrl + 'game'
 
   getGame(): Observable<Game[]> {
     return this.httpClient.get<Game[]>(this.baseURL);

@@ -1,5 +1,5 @@
 FROM node:12.18.2 AS node
-WORKDIR /app
+WORKDIR app
 COPY package.json /app/
 #RUN npm i npm@latest -g
 RUN npm install

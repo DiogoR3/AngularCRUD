@@ -1,35 +1,33 @@
 version: '3'
 
 services:
-  apinetcore:
-    image: projetoaspnetcore
+  api-dotnet:
+    image: crud-dotnet
     build: ./Backend/
     restart: unless-stopped
-    ports:
-      - 81:80
     depends_on: 
-      - sqlserver
+      - sql-server
     volumes:
       - ./config/appsettings.json:/app/appsettings.json
     networks:
       - my-network
 
-  sqlserver:
+  sql-server:
     image: mcr.microsoft.com/mssql/server:latest
     environment: 
       ACCEPT_EULA: Y
-      SA_PASSWORD: SenhaSegura#123
+      SA_PASSWORD: SecurePassword#123
       MSSQL_PID: Express
     ports:
       - 7654:1433
     networks:
       - my-network
 
-  frontangular:
-    image: projetoangularenginx
+  front-angular:
+    image: angular-nginx
     build: ./Front/
     ports:
-      - 4200:80
+      - 80:80
     networks:
       - my-network
 

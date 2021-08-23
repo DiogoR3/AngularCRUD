@@ -13,7 +13,7 @@ export class PersonService {
 
   constructor(private httpClient: HttpClient, private snackBar: MatSnackBar) { }
 
-  private readonly baseURL: string = environment.apiUrl + '/person'
+  private readonly baseURL: string = environment.apiUrl + 'person'
 
   getPerson(): Observable<Person[]> {
     return this.httpClient.get<Person[]>(this.baseURL);
